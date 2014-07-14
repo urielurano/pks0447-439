@@ -41,7 +41,7 @@ def sync(As,alpha, Em_s, Ec_s):
     alp=alpha
     Ems=Em_s
     Ecs=Ec_s
-    for ii in arange(-6.0, 9.8, 2.1):
+    for ii in arange(-6.0, 15, 1.5):
         
         Ega0=pow(10,ii)
         Egamma=Ega0
@@ -74,7 +74,7 @@ def comp(Ac,alpha,Em_c,Ec_c):
     alp=alpha
     Emc=Em_c
     Ecc=Ec_c
-    for ii in arange(1.56, 13, 3.2):
+    for ii in arange(3, 13, 3.2):
         Ega0=pow(10,ii)
         Egamma=Ega0
         C1=0
@@ -233,8 +233,8 @@ def makeFit(files):
         mt = []
         separados = []
         
-        #path = '/home/uluviano/Dropbox/ProyectosAstro/psk0447-439/'
-        path = '/home/antonio/pks0447-439/'
+        path = '/home/uluviano/Dropbox/ProyectosAstro/pks0447-439/'
+        #path = '/home/antonio/pks0447-439/'
 
         i = 0;
         while(i < len(files)):
