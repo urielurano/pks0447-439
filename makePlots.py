@@ -41,7 +41,7 @@ def sync(As,alpha, Em_s, Ec_s):
     alp=alpha
     Ems=Em_s
     Ecs=Ec_s
-    for ii in arange(-6.0, 15, 1.5):
+    for ii in arange(-6.0, 12, 1.5):
         
         Ega0=pow(10,ii)
         Egamma=Ega0
@@ -53,11 +53,11 @@ def sync(As,alpha, Em_s, Ec_s):
             C1=Acs*pow(Egamma/Ems,4.0/3.0)
         if(Ems <= Egamma and  Egamma < Ecs ):
             C2=Acs*pow(Egamma/Ems,-(alp-3.0)/2.0)
-        if(1e1>Egamma >=Ecs):
+        if(5e4>Egamma >=Ecs):
             C3=Acs*pow(Ecs/Ems,-(alp-3.0)/2)*pow(Egamma/Ecs,-(alp-2.0)/2.0)
-        if(Egamma>4e1):
-            C4= Acs*pow(Ecs/Ems,-(alp-3.0)/2)*pow(Egamma/Ecs,-(alp-2.0)/2.0)
-            Ega0=4e1
+        #if(Egamma>4e1):
+            #C4= Acs*pow(Ecs/Ems,-(alp-3.0)/2)*pow(Egamma/Ecs,-(alp-2.0)/2.0)
+            #Ega0=4e1
             
         C=C1+C2+C3+C4
 
@@ -275,7 +275,11 @@ def makeFit(files):
         mg.GetXaxis().SetTitle('Energy (eV)')
         mg.GetYaxis().SetTitle('vFv (erg cm^{-2} s^{-1})')
 
-        fun4 = rt.TF1("fun4"," [0]*((x/[2])^(4/3)*(x>1e-6)*(x<[2])+((x/[2])**((3-[1])/2)*(x>=[2])*(x<[3])) + (([3]/[2])**((3-[1])/2))*((x/[3])**((2-[1])/2))*(x>=[3])*(x<2000))",  1e-6,2000)
+#########################################################
+######################FIT SYNCHROTRON####################
+#########################################################
+
+        fun4 = rt.TF1("fun4"," [0]*((x/[2])^(4/3)*(x>1e-6)*(x<[2])+((x/[2])**((3-[1])/2)*(x>=[2])*(x<[3])) + (([3]/[2])**((3-[1])/2))*((x/[3])**((2-[1])/2))*(x>=[3])*(x<2e4))",  1e-6,2e4)
         rt.fun4.SetParameter(1,2.5);
         rt.fun4.SetParLimits(1,2.5,3.5);
         rt.fun4.SetParameter(2,1e-4);
@@ -292,9 +296,13 @@ def makeFit(files):
         em_s = rt.fun4.GetParameter(2)
         ec_s = rt.fun4.GetParameter(3)
         
-        #print a_s, alfa, em_s, ec_s
+        print a_s, alfa, em_s, ec_s, "\n"
 
-        fun2 = rt.TF1("fun2"," [0]*((x/[1])^(4/3)*(x>1e3)*(x<[1])+((x/[1])**((3-[3])/2)*(x>=[1])*(x<[2])) + (([2]/[1])**((3-[3])/2))*((x/[2])**((2-[3])/2))*(x>=[2])*(x<3e10) )",1e+3,3e+10)
+#########################################################
+######################FIT INVERSE COMPTON################
+#########################################################
+
+        fun2 = rt.TF1("fun2"," [0]*((x/[1])^(4/3)*(x>1e4)*(x<[1])+((x/[1])**((3-[3])/2)*(x>=[1])*(x<[2])) + (([2]/[1])**((3-[3])/2))*((x/[2])**((2-[3])/2))*(x>=[2])*(x<3e10) )",1e+4,3e+10)
         rt.fun2.SetParameter(0,6.32041e-07)
         rt.fun2.SetParameter(1,1e+6)
         rt.fun2.SetParLimits(1,1e+3,1e+7)
@@ -311,6 +319,13 @@ def makeFit(files):
         a_c = rt.fun2.GetParameter(0)
         em_c = rt.fun2.GetParameter(1)
         ec_c = rt.fun2.GetParameter(2)
+
+
+        print a_c, alfa, em_c, ec_c, "\n"
+
+#########################################################
+######################FIT P-GAMMA########################
+#########################################################
 
         fun3 =  rt.TF1("fun3"," [0]*((0.1e12/0.1e12)^(-1)*(x/0.1e12)**(3-[1])*(x>=0.06e12)*(x<0.1e12)+((x/0.1e12)**(2-[1])*(x>=0.1e12)*(x<5e13)))",1E11,7E14) #Interaction pgamma
         rt.fun3.SetParameter(0,3.696e-6)
