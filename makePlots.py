@@ -41,7 +41,7 @@ def sync(As,alpha, Em_s, Ec_s):
     alp=alpha
     Ems=Em_s
     Ecs=Ec_s
-    for ii in arange(-6.0, 12, 1.5):
+    for ii in arange(-6.0, 6, 1.5):
         
         Ega0=pow(10,ii)
         Egamma=Ega0
@@ -74,7 +74,7 @@ def comp(Ac,alpha,Em_c,Ec_c):
     alp=alpha
     Emc=Em_c
     Ecc=Ec_c
-    for ii in arange(3, 13, 3.2):
+    for ii in arange(3, 13, 2.7):
         Ega0=pow(10,ii)
         Egamma=Ega0
         C1=0
@@ -302,12 +302,13 @@ def makeFit(files):
 ######################FIT INVERSE COMPTON################
 #########################################################
 
-        fun2 = rt.TF1("fun2"," [0]*((x/[1])^(4/3)*(x>1e4)*(x<[1])+((x/[1])**((3-[3])/2)*(x>=[1])*(x<[2])) + (([2]/[1])**((3-[3])/2))*((x/[2])**((2-[3])/2))*(x>=[2])*(x<3e10) )",1e+4,3e+10)
-        rt.fun2.SetParameter(0,6.32041e-07)
+        fun2 = rt.TF1("fun2"," [0]*((x/[1])^(4/3)*(x>1e4)*(x<[1])+((x/[1])**((3-[3])/2)*(x>=[1])*(x<[2])) + (([2]/[1])**((3-[3])/2))*((x/[2])**((2-[3])/2))*(x>=[2])*(x<3e11) )",1e+4,3e+11)
+        rt.fun2.SetParameter(0,6.32041e-05)
+        rt.fun2.SetParLimits(0,1e-18,1e-3)
         rt.fun2.SetParameter(1,1e+6)
         rt.fun2.SetParLimits(1,1e+3,1e+7)
-        rt.fun2.SetParameter(2,5e+7)
-        rt.fun2.SetParLimits(2,1e+7,1e+9)
+        rt.fun2.SetParameter(2,5e+10)
+        rt.fun2.SetParLimits(2,1e+9,1e+11)
         rt.fun2.SetParameter(3, alfa)
         rt.fun2.SetParLimits(3,alfa, alfa)
         
