@@ -202,8 +202,8 @@ def make_SplinePlot():
             a.set_yscale('log')
             a.set_xscale('log')
             plt.ylabel(r'epsilon', size=12)
-            plt.xlim(1e-6,1e14)
-            plt.ylim(1e-9,1e-3)
+            #plt.xlim(1e-6,1e14)
+            #plt.ylim(1e-9,1e-3)
             plt.show()
             
     except:
@@ -233,7 +233,9 @@ def makeFit(files):
         mt = []
         separados = []
         
-        path = '/home/uluviano/Dropbox/ProyectosAstro/psk0447-439/'
+        #path = '/home/uluviano/Dropbox/ProyectosAstro/psk0447-439/'
+        path = '/home/antonio/pks0447-439/'
+
         i = 0;
         while(i < len(files)):
             pathFile = path + files[i]
@@ -361,8 +363,8 @@ def _showMathPlotlib():
     a=plt.gca()
     a.set_yscale('log')
     a.set_xscale('log')
-    plt.xlim(1e-6,1e14)
-    plt.ylim(1e-9,1e-3)
+    #plt.xlim(1e-6,1e14)
+    #plt.ylim(1e-9,1e-3)
     plt.show()
 
 
